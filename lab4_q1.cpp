@@ -43,6 +43,13 @@ class Stack {
             }
             return data[top--];
         }
+
+        void display() {
+            for (int i = 0; i <= top; i++) {
+                cout << data[i] << " ";
+            }
+            cout << endl;
+        }
 };
 
 bool isBalanced(const string& expression) {
