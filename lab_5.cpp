@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stdio.h>
+#include <algorithm>
 #define SIZE 5
 using namespace std;
 
@@ -18,7 +19,7 @@ class queue {
         bool isFull(){
             return (rear == SIZE - 1);
         }
-        void enQueue(int element, string nam){
+        void RegisterPatient(int element, string nam){
             if (isFull())
                 cout << " Queue is full!!" << endl;
             else{
@@ -32,7 +33,7 @@ class queue {
             }
         }
 
-        int deQueue(){
+        int ServePatient(){
             int element;
 
             if (isEmpty()) {
@@ -51,20 +52,49 @@ class queue {
             }
         }
 
-        void clearQ(){
+        void CancelAll(){
             front = rear = -1;  
             count = 0;
         }
 
-        void displayQ(){
+        void ShowAllPatient(){
+            
             if (isEmpty()){
                 cout << "Queue is empty." << endl;
             }
             else {
+                string sortedNames[SIZE];
+                int sortedIDs[SIZE];
+                 
                 for (int i = front; i <= rear; i++) {
-                    cout << name[i] << "/" << Q[i] << endl;
+                    sortedNames[i] = name[i];
+                    sortedIDs[i] = Q[i];
                 }
+ 
+                sort(sortedNames + front, sortedNames + rear + 1);
+ 
+                cout << "Waiting List (Name/ID, sorted alphabetically):" << endl;
+                for (int i = front; i <= rear; i++) {
+                    for (int j = front; j <= rear; j++) {
+                        if (name[j] == sortedNames[i]) {
+                            cout << sortedNames[i] << "/" << sortedIDs[j] << endl;
+                            break;
+                        }
+                    }
+                }
+
             }
+        }
+
+        int CanDoctorGoHome(){
+			if (isEmpty()){
+				cout << "Yes please." << endl;
+				return 6;
+			}
+			else{
+				cout << "NO. Patients are waiting." << endl;
+                return -2;
+			}
         }
 };
 
@@ -88,32 +118,32 @@ int main(void){
 				id++;
 				cout << "Enter Patient's Name:";
 				cin >> name;
-				waiting.enQueue(id, name);
+				waiting.RegisterPatient(id, name);
 			}
 			else{
 				cout << " Queue is full!!" << endl;
 			}
 			break;
 		case 2:
-			waiting.deQueue();
+			waiting.ServePatient();
 			cout << "Examined." << endl;
 			break;
 		case 3:
-			waiting.clearQ();
+			waiting.CancelAll();
 			cout << "Cancelled." << endl;
 			break;
 		case 4:
-			if (waiting.isEmpty()){
-				cout << "Yes please." << endl;
-				select = 6;
-			}
-			else{
-				cout << "NO. Patients are waiting." << endl;
-			}
+            int choice;
+            choice = waiting.CanDoctorGoHome();
+            
+            if (choice == 6){
+                select = choice;
+            }
+
 			break;
 		case 5:
 			cout << "Waiting List.(Name/ID)" << endl;
-			waiting.displayQ();
+			waiting.ShowAllPatient();
 			break;
 		case 6:
 			break;
