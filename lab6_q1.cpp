@@ -3,6 +3,20 @@
 #include <time.h> 
 
 using namespace std;
+
+unsigned long long rec_fib(int n,  unsigned long long int n1=0, unsigned long long int n2=1){  
+    // n1 and n2 are the default arguments
+    if(n==0){    
+        return n1;         // when n is zero i.e end of sequence is reached,end recursion
+    }
+    else{ 
+        unsigned long long int n3;
+        n3=n1+n2;
+        n1=n2;
+        n2=n3;
+        rec_fib(--n,n1,n2);
+    } 
+}
  
 unsigned long long recursiveFibonacci(int n) {
     if (n <= 1) {
@@ -36,7 +50,7 @@ int main() {
  
     // Measure time for recursive Fibonacci
     auto startRec = chrono::high_resolution_clock::now(); 
-    long long recursiveResult = recursiveFibonacci(n);
+    long long recursiveResult = rec_fib(n);
     auto stopRec = chrono::high_resolution_clock::now();
     auto durationRec = chrono::duration_cast<chrono::milliseconds>(stopRec - startRec);
 
