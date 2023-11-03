@@ -54,6 +54,58 @@ class SortTiming{
                 arr[j + 1] = key;
             }
         }
+
+        // function to use in merge sort
+        void merge(vector<int>& arr, int left, int mid, int right) {
+            int n1 = mid - left + 1;
+            int n2 = right - mid;
+
+            int L[n1], R[n2];
+
+            for (int i = 0; i < n1; i++) {
+                L[i] = arr[left + i];
+            }
+            for (int i = 0; i < n2; i++) {
+                R[i] = arr[mid + 1 + i];
+            }
+
+            int i = 0, j = 0, k = left;
+
+            while (i < n1 && j < n2) {
+                if (L[i] <= R[j]) {
+                    arr[k] = L[i];
+                    i++;
+                } else {
+                    arr[k] = R[j];
+                    j++;
+                }
+                k++;
+            }
+
+            while (i < n1) {
+                arr[k] = L[i];
+                i++;
+                k++;
+            }
+
+            while (j < n2) {
+                arr[k] = R[j];
+                j++;
+                k++;
+            }
+        }
+
+        // Calling the merge function recursively
+        void mergeSort(vector<int>& arr, int left, int right) {
+            if (left < right) {
+                int mid = left + (right - left) / 2;
+
+                mergeSort(arr, left, mid);
+                mergeSort(arr, mid + 1, right);
+
+                merge(arr, left, mid, right);
+            }
+        }
 };
 
 int main() {
@@ -90,10 +142,20 @@ int main() {
         end_time = clock();
         double insertionSortTime = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
+        // Restore the original unsorted array
+        random_shuffle(arr.begin(), arr.end());
+
+        // Measure time for Merge Sort
+        start_time = clock();
+        srt.mergeSort(arr, 0, size-1);
+        end_time = clock();
+        double mergeSortTime = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
+
         cout << "Array size: " << size << endl;
         cout << "Bubble Sort Time: " << bubbleSortTime << " seconds" << endl;
         cout << "Selection Sort Time: " << selectionSortTime << " seconds" << endl;
         cout << "Insertion Sort Time: " << insertionSortTime << " seconds" << endl;
+        cout << "Merge Sort Time: " << mergeSortTime << " seconds" << endl;
         cout << endl;
     }
  
