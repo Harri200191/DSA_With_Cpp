@@ -28,8 +28,7 @@ void insertAtLocation(int value, int location = 3){
     newNode -> value = value;
 
     if (location == 1) {
-        newNode->next = head;
-        head = newNode;
+        insertAtHead(value);
         return;
     }
 
