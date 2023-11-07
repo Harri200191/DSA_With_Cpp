@@ -2,32 +2,25 @@
 #include <vector>
 
 using namespace std;
-
-// Function to partition the array
+ 
 int partition(vector<int>& arr, int low, int high) {
-    int pivot = arr[high]; // Choose the last element as the pivot
-    int i = low - 1; // Index of the smaller element
+    int pivot = arr[high];  
+    int i = low - 1;  
 
-    for (int j = low; j < high; j++) {
-        // If the current element is smaller than or equal to the pivot
+    for (int j = low; j < high; j++) { 
         if (arr[j] <= pivot) {
             i++;
             swap(arr[i], arr[j]);
         }
     }
-
-    // Swap the pivot element with the element at (i + 1)
+ 
     swap(arr[i + 1], arr[high]);
     return i + 1;
 }
-
-// Function to perform Quick Sort
+ 
 void quickSort(vector<int>& arr, int low, int high) {
-    if (low < high) {
-        // Partition the array into two sub-arrays and get the pivot element
-        int pivotIndex = partition(arr, low, high);
-
-        // Recursively sort the elements before and after the pivot
+    if (low < high) { 
+        int pivotIndex = partition(arr, low, high); 
         quickSort(arr, low, pivotIndex - 1);
         quickSort(arr, pivotIndex + 1, high);
     }
