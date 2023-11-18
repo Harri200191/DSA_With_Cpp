@@ -74,16 +74,21 @@ class SortTiming{
 };
 
 int main() {
+    // Create an object of the SortTiming class
     SortTiming srt;
-    srand(static_cast<unsigned>(time(0))); // Seed the random number generator
+
+    // Set the seed for the random number generator
+    srand(static_cast<unsigned>(time(0)));  
 
     // Array sizes
     vector<int> sizes = {100, 500, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 20000, 30000};
 
     for (int size : sizes) {
+        // Generate random arrays
         vector<int> arrAsc = srt.generateRandomArray(size);
         vector<int> arrDesc = arrAsc;
 
+        // Measure time for sort (ascending order)
         clock_t start_time = clock();
         sort(arrAsc.begin(), arrAsc.end());
         clock_t end_time = clock();
@@ -119,6 +124,7 @@ int main() {
         end_time = clock();
         double countingSortDescendingTime = static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC;
 
+        // Display the results
         cout << "Array size: " << size << endl; 
         cout << "Quick Sort (ascending order) time: " << quickSortAscendingTime << endl;
         cout << "Quick Sort (descending order) time: " << quickSortDescendingTime << endl;
