@@ -166,12 +166,13 @@ void BinarySearchTree::print_preorder() {
 
 // Function to print preorder traversal
 void BinarySearchTree::preorder(tree_node* p) {
-	// Write your code here
-
-
+	if (p != nullptr) {
+		cout << p->data << "\t";
+		preorder(p->left);
+		preorder(p->right);
+	}
 
 }
-
 
 // Function to print postorder traversal
 void BinarySearchTree::print_postorder() {
@@ -179,14 +180,13 @@ void BinarySearchTree::print_postorder() {
 	cout << endl;
 }
 
-
 // Function to print postorder traversal
 void BinarySearchTree::postorder(tree_node* p) {
-    // Write your code here
-
-	
-
-
+	if (p != nullptr) {
+		postorder(p->left);
+		postorder(p->right);
+		cout << p->data << "\t";
+	}
 }
 
 // Function to insert data
