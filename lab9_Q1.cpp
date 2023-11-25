@@ -233,33 +233,43 @@ int main()
 			cout << "> ";
 			cin >> menuOption;
 
+            // Exit the program
 			if (menuOption == 6) {
 				return 0; //Exiting
 			}
 
-
+            // Perform the selected operation
 			switch (menuOption)
 			{
+                // Insert new data
 				case 1:
 				{
 					insertIntoTree(&b);
 					break;
 				}
+
+                // Print inorder traversal
 				case 2:
 				{
 					b.print_inorder();
 					break;
 				}
+
+                // Print preorder traversal
 				case 3:
 				{
 					b.print_preorder();
 					break;
 				}
+
+                // Print postorder traversal
 				case 4:
 				{
 					b.print_postorder();
 					break;
 				}
+
+                // Delete an item
 				case 5:
 				{
 					cout << "Enter element to remove:" << endl;
