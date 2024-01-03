@@ -3,131 +3,131 @@ using namespace std;
 
 class sorting
 {
-public:
-    // Function to implement bubble sort. Used swap() in all
-    void bubbleSort(int arr[], int n)
-    {
-        for (int i = 0; i < n - 1; i++)
+    public:
+        // Function to implement bubble sort. Used swap() in all
+        void bubbleSort(int arr[], int n)
         {
-            for (int j = 0; j < n - i - 1; j++)
+            for (int i = 0; i < n - 1; i++)
             {
-                if (arr[j] > arr[j + 1])
+                for (int j = 0; j < n - i - 1; j++)
                 {
-                    swap(arr[j], arr[j + 1]);
+                    if (arr[j] > arr[j + 1])
+                    {
+                        swap(arr[j], arr[j + 1]);
+                    }
                 }
             }
         }
-    }
 
-    // Function to implement selection sort
-    void selectionSort(int arr[], int n)
-    {
-        for (int i = 0; i < n - 1; i++)
+        // Function to implement selection sort
+        void selectionSort(int arr[], int n)
         {
-            int minIndex = i;
-            for (int j = i + 1; j < n; j++)
+            for (int i = 0; i < n - 1; i++)
             {
-                if (arr[j] < arr[minIndex])
+                int minIndex = i;
+                for (int j = i + 1; j < n; j++)
                 {
-                    minIndex = j;
+                    if (arr[j] < arr[minIndex])
+                    {
+                        minIndex = j;
+                    }
                 }
+                swap(arr[i], arr[minIndex]);
             }
-            swap(arr[i], arr[minIndex]);
-        }
 
-        for (int i = n-1; i>0; i--)
-        {
-            int maxIndex = i;
-            for (int j = 0; j<i;j++)
+            for (int i = n-1; i>0; i--)
             {
-                if (arr[j] > arr[maxIndex])
+                int maxIndex = i;
+                for (int j = 0; j<i;j++)
                 {
-                    maxIndex = j;
+                    if (arr[j] > arr[maxIndex])
+                    {
+                        maxIndex = j;
+                    }
                 }
+                swap(arr[i], arr[maxIndex]);
             }
-            swap(arr[i], arr[maxIndex]);
         }
-    }
 
-    // Function to implement bubble sort
-    void insertionSort(int arr[], int n)
-    {
-        for (int i = 1; i < n; i++)
+        // Function to implement bubble sort
+        void insertionSort(int arr[], int n)
         {
-            int key = arr[i];
-            int j = i - 1;
-
-            while (j >= 0 && arr[j] > key)
+            for (int i = 1; i < n; i++)
             {
-                arr[j + 1] = arr[j];
-                j--;
+                int key = arr[i];
+                int j = i - 1;
+
+                while (j >= 0 && arr[j] > key)
+                {
+                    arr[j + 1] = arr[j];
+                    j--;
+                }
+
+                arr[j + 1] = key;
+            }
+        }
+
+        // function to use in merge sort
+        void merge(int arr[], int left, int mid, int right)
+        {
+            int n1 = mid - left + 1;
+            int n2 = right - mid;
+
+            int L[n1], R[n2];
+
+            for (int i = 0; i < n1; i++)
+            {
+                L[i] = arr[left + i];
+            }
+            for (int i = 0; i < n2; i++)
+            {
+                R[i] = arr[mid + 1 + i];
             }
 
-            arr[j + 1] = key;
-        }
-    }
+            int i = 0, j = 0, k = left;
 
-    // function to use in merge sort
-    void merge(int arr[], int left, int mid, int right)
-    {
-        int n1 = mid - left + 1;
-        int n2 = right - mid;
+            while (i < n1 && j < n2)
+            {
+                if (L[i] <= R[j])
+                {
+                    arr[k] = L[i];
+                    i++;
+                }
+                else
+                {
+                    arr[k] = R[j];
+                    j++;
+                }
+                k++;
+            }
 
-        int L[n1], R[n2];
-
-        for (int i = 0; i < n1; i++)
-        {
-            L[i] = arr[left + i];
-        }
-        for (int i = 0; i < n2; i++)
-        {
-            R[i] = arr[mid + 1 + i];
-        }
-
-        int i = 0, j = 0, k = left;
-
-        while (i < n1 && j < n2)
-        {
-            if (L[i] <= R[j])
+            while (i < n1)
             {
                 arr[k] = L[i];
                 i++;
+                k++;
             }
-            else
+
+            while (j < n2)
             {
                 arr[k] = R[j];
                 j++;
+                k++;
             }
-            k++;
         }
 
-        while (i < n1)
+        // Calling the merge function recursively
+        void mergeSort(int arr[], int left, int right)
         {
-            arr[k] = L[i];
-            i++;
-            k++;
-        }
+            if (left < right)
+            {
+                int mid = left + (right - left) / 2;
 
-        while (j < n2)
-        {
-            arr[k] = R[j];
-            j++;
-            k++;
+                mergeSort(arr, left, mid);
+                mergeSort(arr, mid + 1, right);
+                merge(arr, left, mid, right);
+            }
         }
-    }
-
-    // Calling the merge function recursively
-    void mergeSort(int arr[], int left, int right)
-    {
-        if (left < right)
-        {
-            int mid = left + (right - left) / 2;
-
-            mergeSort(arr, left, mid);
-            mergeSort(arr, mid + 1, right);
-            merge(arr, left, mid, right);
-        }
-    }
 };
 
 int main()

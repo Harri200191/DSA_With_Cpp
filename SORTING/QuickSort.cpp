@@ -7,14 +7,23 @@ int partition(vector<int>& arr, int low, int high) {
     int pivot = arr[high];  
     int i = low - 1;  
 
+    // Move all elements smaller than pivot to the left
     for (int j = low; j < high; j++) { 
+
+        // If current element is smaller than or equal to pivot
         if (arr[j] <= pivot) {
+
+            // Increment index of smaller element
             i++;
+
+            // Swap current element with index
             swap(arr[i], arr[j]);
         }
     }
  
+    // Swap pivot with index
     swap(arr[i + 1], arr[high]);
+    
     return i + 1;
 }
  

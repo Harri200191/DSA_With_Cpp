@@ -7,87 +7,86 @@ struct Node
     Node(int value) : data(value), next(nullptr) {}
 };
  
-class LinkedList
-{
-private:
-    Node *head;
+class LinkedList{
+    private:
+        Node *head;
 
-public: 
-    LinkedList() : head(nullptr) {} 
-    void insertAtBeginning(int value)
-    {
-        Node *newNode = new Node(value);
-        newNode->next = head;
-        head = newNode;
-    }
- 
-    void insertAtEnd(int value)
-    {
-        Node *newNode = new Node(value);
-        if (!head)
+    public: 
+        LinkedList() : head(nullptr) {} 
+        void insertAtBeginning(int value)
         {
+            Node *newNode = new Node(value);
+            newNode->next = head;
             head = newNode;
         }
-        else
+    
+        void insertAtEnd(int value)
         {
-            Node *current = head;
-            while (current->next)
+            Node *newNode = new Node(value);
+            if (!head)
             {
-                current = current->next;
+                head = newNode;
             }
-            current->next = newNode;
-        }
-    }
- 
-    void deleteNode(int value)
-    {
-        if (!head)
-        {
-            return;
-        }
-
-        if (head->data == value)
-        {
-            Node *temp = head;
-            head = head->next;
-            delete temp;
-            return;
-        }
-
-        Node *current = head;
-        while (current->next)
-        {
-            if (current->next->data == value)
+            else
             {
-                Node *temp = current->next;
-                current->next = current->next->next;
+                Node *current = head;
+                while (current->next)
+                {
+                    current = current->next;
+                }
+                current->next = newNode;
+            }
+        }
+    
+        void deleteNode(int value)
+        {
+            if (!head)
+            {
+                return;
+            }
+
+            if (head->data == value)
+            {
+                Node *temp = head;
+                head = head->next;
                 delete temp;
                 return;
             }
-            current = current->next;
+
+            Node *current = head;
+            while (current->next)
+            {
+                if (current->next->data == value)
+                {
+                    Node *temp = current->next;
+                    current->next = current->next->next;
+                    delete temp;
+                    return;
+                }
+                current = current->next;
+            }
         }
-    }
- 
-    void display()
-    {
-        Node *current = head;
-        while (current)
+    
+        void display()
         {
-            std::cout << current->data << " --> ";
-            current = current->next;
+            Node *current = head;
+            while (current)
+            {
+                std::cout << current->data << " --> ";
+                current = current->next;
+            }
+            std::cout << "nullptr" << std::endl;
         }
-        std::cout << "nullptr" << std::endl;
-    }
- 
-    ~LinkedList()
-    {
-        while (head)
+    
+        ~LinkedList()
         {
-            Node *temp = head;
-            head = head->next;
-            delete temp;
+            while (head)
+            {
+                Node *temp = head;
+                head = head->next;
+                delete temp;
+            }
         }
-    }
 };
 
 int main()
